@@ -7,6 +7,7 @@ Website for Mitch, a chiropractor and sports massage therapist in the UK. Lewis 
 - `npm run dev` builds and serves at http://localhost:3000
 - `npm run build` writes `dist/` and lists every placeholder still empty
 - No dependencies. Plain HTML, CSS and JavaScript, built by `build.mjs`. Hosted on Vercel via `vercel.json`.
+- A preview is published to GitHub Pages (https://lewissn.github.io/drmitch/) by `.github/workflows/pages.yml` on every push to `main` or `redesign-ceramic`. The site is served from a subfolder there, so never use root-relative paths (`/...`) for assets or links.
 
 ## Where things are
 

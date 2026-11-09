@@ -215,7 +215,7 @@ const render = (s, base, home) => s
 fs.rmSync(out, { recursive: true, force: true });
 fs.cpSync('src/assets', `${out}/assets`, { recursive: true });
 for (const f of fs.readdirSync('src/root')) fs.copyFileSync(`src/root/${f}`, `${out}/${f}`);
-const manifest = { name: BRAND, short_name: cfg.surname ? `Mitch ${cfg.surname}` : 'Mitch', icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/icon-512.png', sizes: '512x512', type: 'image/png' }], theme_color: '#F3F1EC', background_color: '#F3F1EC', display: 'browser' };
+const manifest = { name: BRAND, short_name: cfg.surname ? `Mitch ${cfg.surname}` : 'Mitch', icons: [{ src: 'icon-192.png', sizes: '192x192', type: 'image/png' }, { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }], theme_color: '#F3F1EC', background_color: '#F3F1EC', display: 'browser' };
 fs.writeFileSync(`${out}/site.webmanifest`, JSON.stringify(manifest));
 
 // Text pages with four or more sections get an "On this page" list, and every section heading gets an id

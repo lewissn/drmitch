@@ -7,6 +7,10 @@ A static site with no framework. The source is in `src/`, and `npm run build` wr
 Edit `site.config.json`, then run `node build.mjs`. The build lists every placeholder still empty.
 Put the real photo of Mitch in the empty frame in the About section (`.photo` in `src/pages/index.html`), and add a map image in the Visit section.
 
+## Preview on GitHub Pages
+
+`.github/workflows/pages.yml` builds the site and publishes it to https://lewissn.github.io/drmitch/ on every push to `main` or `redesign-ceramic`. It needs the repository to be public, Settings › Pages › Source set to "GitHub Actions", and the branch allowed under Settings › Environments › github-pages. While `launched` is false, every page carries `noindex`, so the preview stays out of search results. The real site will move to Vercel at launch.
+
 ## Before launch
 
 1. Fill `site.config.json` and have Mitch check the clinical wording.

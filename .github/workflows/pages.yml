@@ -1,0 +1,36 @@
+# Builds the site and publishes it to GitHub Pages (https://lewissn.github.io/drmitch/) on every push.
+# While `launched` is false in site.config.json the pages carry noindex, so search engines leave the preview alone.
+name: Publish to GitHub Pages
+
+on:
+  push:
+    branches: [main, redesign-ceramic]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: node build.mjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4
