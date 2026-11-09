@@ -46,6 +46,8 @@
   const summary = () => {
     $('[data-sum-svc]').textContent = SVC[svcValue()];
     $('[data-sum-when]').textContent = whenText();
+    // Phones show a one-line summary above the buttons instead of the summary panel
+    $('[data-navsum]').textContent = state.slot ? `${SVC[svcValue()]} · ${whenText()}` : SVC[svcValue()];
   };
   form.addEventListener('change', summary);
 

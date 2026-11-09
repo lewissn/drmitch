@@ -73,6 +73,6 @@ Started in a Claude session, handed to Claude Code part-way. Not yet checked:
 
 ## Status
 
-- `/book/` is a working front-end preview with no real diary or payment. The plan is Cliniko with Stripe; set `bookingUrl` to send every Book button there.
+- `/book/` is a working front-end preview with no real diary or payment. Its treatment picker is the same inset list as the homepage, with radio circles; selections are blue, never black. The 999 note is a red alert. On phones a one-line summary sits above the buttons instead of the summary panel. The confirmation has a tick. No Book buttons appear in the header while booking. The plan is Cliniko with Stripe; set `bookingUrl` to send every Book button there.
 - Still needed from Mitch: see the placeholders listed by `npm run build`, his real photo (the About section has an empty frame for it), and a map image.
 - Waiting on which doctorate Mitch holds. If he has a medical degree and GMC registration, the "Dr" wording can change.
