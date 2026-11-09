@@ -41,6 +41,17 @@ Website for Mitch, a chiropractor and sports massage therapist in the UK. Lewis 
 - Google no longer shows FAQ rich results, so there is no FAQPage markup.
 - The clinic JSON-LD only includes filled-in facts. Never invent an address, reviews or ratings.
 
+## Next steps
+
+Started in a Claude session, handed to Claude Code part-way. Not yet checked:
+
+- The full scroll scene with all 64 frames, on a real iPhone and in Safari. Only tested in Chromium's phone emulation, and only with the early frames. Check for jank, memory and ghosting between frames.
+- The hero at desktop width after its last type-size change.
+- The close-up spine image in the blue "Chiropractic can help with" band at phone width.
+- Lighthouse scores, keyboard use and screen reader pass.
+
+Re-rendering frames on a Mac: from `tools/render`, run `clang++ -O3 -ffast-math spine_seq.cpp -o spine_seq`, then `python3 seq.py 1200 1667 64 seq 1080,720` (needs `numpy` and `pillow`). Apple's compiler has no OpenMP, so it runs on one core and takes a good while. Copy the results into `src/assets/seq/`.
+
 ## Status
 
 - `/book/` is a working front-end preview with no real diary or payment. The plan is Cliniko with Stripe; set `bookingUrl` to send every Book button there.
