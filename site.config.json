@@ -1,0 +1,46 @@
+{
+  "_read_me": "Fill this one file and run `node build.mjs`. Anything left empty shows on the site as a dotted [placeholder] and is left out of Google's data. Keep launched false until every placeholder is filled: it keeps search engines out.",
+
+  "launched": false,
+  "siteUrl": "https://drmitch.co.uk",
+  "lastUpdated": "2026-11-09",
+
+  "surname": "",
+  "gccNumber": "",
+  "town": "",
+  "county": "",
+
+  "clinicName": "",
+  "street": "",
+  "postcode": "",
+  "latitude": "",
+  "longitude": "",
+  "openingHours": "",
+  "parking": "",
+  "phone": "",
+  "email": "",
+
+  "bio": "",
+  "degree": "",
+  "massageQualification": "",
+  "association": "",
+  "insurers": "",
+
+  "legalName": "",
+  "businessType": "",
+  "companyNumber": "",
+  "icoNumber": "",
+  "recordsRetention": "",
+
+  "cancellationNotice": "",
+  "deposit": "",
+
+  "newMinutes": "60",
+  "newPrice": "",
+  "followMinutes": "30",
+  "followPrice": "",
+  "massageMinutes": "60",
+  "massagePrice": "",
+
+  "bookingUrl": ""
+}

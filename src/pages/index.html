@@ -1,0 +1,144 @@
+<section class="scene" data-scene aria-label="Introduction">
+  <div class="stage">
+    <div class="view" aria-hidden="true">
+      <img class="poster" src="{{base}}assets/seq/720-000.webp" width="720" height="1000" alt="" fetchpriority="high" decoding="async">
+      <canvas data-canvas></canvas>
+    </div>
+    <div class="copy">
+      <h1 class="kicker">Chiropractic and sports massage in {{town}}</h1>
+      <p class="display">
+        <span class="vh">Let’s have a look at that back.</span>
+        <span aria-hidden="true">Let’s have<br class="m"> a look<br class="d"> at<br class="m"> that <span class="reel"><span class="reel-in" data-reel><span>neck.</span><span>shoulder.</span><span>back.</span><span>spine.</span></span></span></span>
+      </p>
+      <div class="subs" aria-hidden="true">
+        <p class="on" data-sub>Mechanical neck pain and headaches arising from the neck.</p>
+        <p data-sub>Shoulder pain and dysfunction, and rotator cuff problems.</p>
+        <p data-sub>Acute or long-standing backache, lumbago and sciatica.</p>
+        <p data-sub>See what Mitch treats, what it costs and when he can see you.</p>
+      </div>
+      <div class="actions">
+        <a class="btn" href="{{link:book}}">Book an appointment</a>
+        <a class="link" href="#treat">See prices and treatments</a>
+      </div>
+      <p class="dr">{{dr}}</p>
+    </div>
+    <span class="cue" aria-hidden="true" data-cue></span>
+  </div>
+</section>
+
+<section class="sec" id="treat">
+  <div class="wrap split">
+    <h2 class="h2 blue">Appointments and prices</h2>
+    <div class="rows">
+      <article class="row">
+        <div><h3>New patient consultation</h3><p>Chiropractic. History, examination, explanation and first treatment if suitable.</p></div>
+        <p class="price"><span>{{newMin}} min</span><b>{{newPrice}}</b></p>
+        <a class="link" href="{{link:book}}">Book this<span class="vh">: new patient consultation</span></a>
+      </article>
+      <article class="row">
+        <div><h3>Follow-up treatment</h3><p>Chiropractic. For existing patients.</p></div>
+        <p class="price"><span>{{followMin}} min</span><b>{{followPrice}}</b></p>
+        <a class="link" href="{{link:book}}">Book this<span class="vh">: follow-up treatment</span></a>
+      </article>
+      <article class="row">
+        <div><h3>Sports massage</h3><p>Hands-on soft tissue work for tight, tired muscles.</p></div>
+        <p class="price"><span>{{massageMin}} min</span><b>{{massagePrice}}</b></p>
+        <a class="link" href="{{link:book}}">Book this<span class="vh">: sports massage</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="band-copy">
+    <h2 class="h2">Chiropractic can help with</h2>
+    <ul class="conds">
+      <li>General, acute and long-standing back pain</li>
+      <li>Lumbago</li>
+      <li>Sciatica</li>
+      <li>Mechanical neck pain</li>
+      <li>Headaches arising from the neck</li>
+      <li>Migraine prevention</li>
+      <li>Shoulder pain and dysfunction</li>
+      <li>Rotator cuff problems</li>
+      <li>Joint pains</li>
+      <li>Minor sports injuries</li>
+      <li>Muscle spasms and cramp</li>
+      <li>Tension and inability to relax</li>
+    </ul>
+    <p class="small">Also short-term management of ankle sprains and plantar fasciitis, and hip or knee pain from osteoarthritis alongside your core treatment and exercise. If your back or neck pain started after an accident or injury, call Mitch before booking.</p>
+    <h3 class="h3">Sports massage</h3>
+    <p class="lead">Book it before an event, after one, or in the middle of a heavy training block. You’ll tell Mitch what’s tight and what you’re training for, and he’ll work from there.</p>
+  </div>
+  <div class="band-img" aria-hidden="true"><img src="{{base}}assets/img/spine-lumbar.webp" alt="" width="933" height="1679" loading="lazy" decoding="async"></div>
+</section>
+
+<section class="sec" id="first">
+  <div class="wrap">
+    <h2 class="h2 blue">Your first visit</h2>
+    <ol class="steps">
+      <li><span aria-hidden="true">1</span><h3>Talk</h3><p>Your history, what’s bothering you, what you’ve tried and what you want to get back to.</p></li>
+      <li><span aria-hidden="true">2</span><h3>Examine</h3><p>How you move, plus the orthopaedic and neurological tests that are relevant to you.</p></li>
+      <li><span aria-hidden="true">3</span><h3>Explain</h3><p>What Mitch thinks is going on, your options, the risks and the likely cost. You decide what happens next.</p></li>
+      <li><span aria-hidden="true">4</span><h3>Treat or refer</h3><p>If chiropractic is right for you, treatment can start that day. If it isn’t, he’ll say so and tell you who to see.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec deep" id="about">
+  <div class="wrap about">
+    <figure>
+      <img src="{{base}}assets/img/spine-neck.webp" alt="Placeholder image, to be replaced with a photo of Mitch" width="1080" height="1350" loading="lazy" decoding="async">
+      <figcaption><span class="todo">[Real photo of Mitch at work in the clinic]</span></figcaption>
+    </figure>
+    <div>
+      <h2 class="h2">About Mitch</h2>
+      <p class="bio">{{bio}}</p>
+      <dl class="facts">
+        <div><dt>Regulator</dt><dd>General Chiropractic Council, no. {{gcc}}</dd></div>
+        <div><dt>Doctorate</dt><dd>{{degree}}</dd></div>
+        <div><dt>Sports massage</dt><dd>{{massageQ}}</dd></div>
+        <div><dt>Member of</dt><dd>{{association}}</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="questions">
+  <div class="wrap split">
+    <h2 class="h2 blue">Questions</h2>
+    <div class="faq">
+      <details open><summary>Why is he called Dr Mitch?</summary><div><p>“Dr” is a courtesy title available to chiropractors registered with the General Chiropractic Council. Mitch is a Doctor of Chiropractic. He is not a medical doctor and does not hold a general medical qualification.</p></div></details>
+      <details><summary>Do I need a GP referral?</summary><div><p>No, you can book directly. With your permission, Mitch can write to your GP about your care.</p></div></details>
+      <details><summary>What should I wear?</summary><div><p>Something comfortable you can move in. Shorts are useful if it’s your hips, knees or legs.</p></div></details>
+      <details><summary>Can I claim on private health insurance?</summary><div><p>{{insurers}}</p></div></details>
+      <details><summary>What if I need to cancel?</summary><div><p>Please give at least {{notice}}. The full rules are in the <a href="{{link:terms}}">booking terms</a>.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="urgent" aria-labelledby="urgent">
+  <div class="wrap split">
+    <h2 id="urgent">Don’t book online. Call 999 or go to A&amp;E if you have:</h2>
+    <p>Sudden loss of bladder or bowel control, numbness around your genitals or buttocks, weakness in both legs, chest pain, or a sudden severe headache.</p>
+  </div>
+</section>
+
+<section class="sec" id="visit" data-visit>
+  <div class="wrap visit">
+    <div>
+      <h2 class="h2 blue">Visit</h2>
+      <address>
+        <p class="lead">{{address}}</p>
+        <p>{{hours}}</p>
+        <p>{{parking}}</p>
+        <p>{{phone}}</p>
+        <p>{{email}}</p>
+      </address>
+      <div class="actions"><a class="btn btn-cobalt" href="{{link:book}}">Book an appointment</a>{{directions}}</div>
+    </div>
+    <div class="map"><span class="todo">[Map image of the clinic’s location]</span></div>
+  </div>
+</section>
+
+<div class="dock" data-dock><a class="btn btn-cobalt" href="{{link:book}}">Book an appointment</a></div>

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+dist-preview/
+.vercel/
+.DS_Store
+tools/render/seq/
+tools/render/spine_seq

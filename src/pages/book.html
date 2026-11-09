@@ -1,0 +1,81 @@
+<div class="book" data-book>
+  <div class="book-top">
+    <p class="book-step" data-steplabel>Step 1 of 4</p>
+    <div class="book-prog" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <div class="book-grid">
+    <form class="book-main" data-form novalidate>
+
+      <section data-panel="service">
+        <h1>What would you like to book?</h1>
+        <fieldset class="svc">
+          <legend class="vh">Appointment type</legend>
+          <label><input type="radio" name="svc" value="new" checked><span><b>New patient consultation</b><small>Chiropractic</small></span><em>{{newMin}} min<br>{{newPrice}}</em></label>
+          <label><input type="radio" name="svc" value="follow"><span><b>Follow-up treatment</b><small>Chiropractic, existing patients</small></span><em>{{followMin}} min<br>{{followPrice}}</em></label>
+          <label><input type="radio" name="svc" value="massage"><span><b>Sports massage</b><small>Soft tissue work</small></span><em>{{massageMin}} min<br>{{massagePrice}}</em></label>
+        </fieldset>
+        <p class="note">Loss of bladder or bowel control, numbness around your genitals or buttocks, or weakness in both legs? Don’t book online. Call 999 or go to A&amp;E.</p>
+      </section>
+
+      <section data-panel="time" hidden>
+        <h1>Pick a time</h1>
+        <h2 data-month></h2>
+        <div class="days" data-days></div>
+        <h2 data-slotlabel></h2>
+        <div class="slots" data-slots></div>
+        <p class="err" data-err-time hidden>Choose a time to carry on.</p>
+        <p class="note">Sample times for this preview. The live site will show Mitch’s real diary.</p>
+      </section>
+
+      <section data-panel="details" hidden>
+        <h1>Your details</h1>
+        <div class="fields">
+          <div class="f"><label for="first">First name</label><input id="first" name="first" autocomplete="given-name" required><p class="err" hidden>Enter your first name.</p></div>
+          <div class="f"><label for="last">Last name</label><input id="last" name="last" autocomplete="family-name" required><p class="err" hidden>Enter your last name.</p></div>
+          <div class="f"><label for="email">Email</label><input id="email" name="email" type="email" inputmode="email" autocomplete="email" required><p class="err" hidden>Enter an email address like name@example.com.</p></div>
+          <div class="f"><label for="phone">Mobile number</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required><p class="err" hidden>Enter a mobile number so Mitch can reach you.</p></div>
+        </div>
+        <p class="note">No need to write down your health history. Mitch will go through that with you in person.</p>
+      </section>
+
+      <section data-panel="pay" hidden>
+        <h1>Pay your deposit</h1>
+        <p class="note first">Your deposit holds the appointment. The balance is paid at the clinic.</p>
+        <p class="mock">Preview of the payment step. No card details are collected and nothing is charged.</p>
+        <div class="card">
+          <div class="f wide"><label for="card">Card number</label><input id="card" readonly value="•••• •••• •••• 4242"></div>
+          <div class="f"><label for="exp">Expiry</label><input id="exp" readonly value="MM / YY"></div>
+          <div class="f"><label for="cvc">Security code</label><input id="cvc" readonly value="•••"></div>
+        </div>
+        <label class="check" data-consent-wrap hidden><input type="checkbox" data-consent><span>I want this appointment to take place within my 14-day cancellation period. I can still cancel before it happens.</span></label>
+        <p class="err" data-err-consent hidden>Tick the box to confirm your appointment can go ahead this soon.</p>
+        <p class="note">Payments are processed by Stripe. Card details never reach this website. By paying you accept the <a href="{{link:terms}}">booking terms</a>.</p>
+      </section>
+
+      <section data-panel="done" hidden>
+        <h1 class="big">You’re booked in.</h1>
+        <p class="lead">A confirmation is on its way to <span data-echo-email>your inbox</span>, with a link to change or cancel.</p>
+        <dl class="facts">
+          <div><dt>Appointment</dt><dd data-echo-svc></dd></div>
+          <div><dt>When</dt><dd data-echo-when></dd></div>
+          <div><dt>Where</dt><dd>{{address}}</dd></div>
+        </dl>
+        <div class="actions"><a class="btn" href="{{link:home}}">Back to the homepage</a></div>
+      </section>
+
+      <div class="book-nav" data-nav>
+        <button class="back" type="button" data-back hidden>Go back</button>
+        <button class="btn btn-cobalt" type="submit" data-next>Choose a time</button>
+      </div>
+    </form>
+
+    <aside class="sum" aria-label="Your booking" data-sum>
+      <h2>Your booking</h2>
+      <p class="sum-name" data-sum-svc></p>
+      <p class="sum-when" data-sum-when>Time not chosen yet</p>
+      <div class="sum-row"><span>Due today (deposit)</span><b>{{deposit}}</b></div>
+      <p class="sum-dr">{{dr}}</p>
+    </aside>
+  </div>
+</div>
