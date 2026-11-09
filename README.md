@@ -32,4 +32,4 @@ These are free Unsplash photos (Unsplash Licence), used only until Mitch supplie
 
 ## The logo
 
-`src/assets/img/logo-badge.webp` is Mitch's badge, cropped from the file he supplied. Swap in a higher-resolution version when his designer sends one. `CLAUDE.md` explains the "Dr" rules it has to follow.
+The logo files are in `brand/`. See `brand/README.md` for which one to use where. The website draws the symbol inline from `build.mjs`.

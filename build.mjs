@@ -15,9 +15,13 @@ const money = (key) => (cfg[key] ? esc(cfg[key]) : todo('£00'));
 const address = [cfg.clinicName, cfg.street, cfg.town, cfg.county, cfg.postcode].filter(Boolean).join(', ');
 const where = cfg.town ? `in ${cfg.town}` : '';
 const DR = '“Dr” is a courtesy title. Mitch is a Doctor of Chiropractic and does not hold a general medical qualification.';
-// The name always appears as "Dr Mitch Ede" followed straight away by "Doctor of Chiropractic".
-const NAME = `Dr Mitch${cfg.surname ? ` ${cfg.surname}` : ''}`;
+// The brand name matches Mitch's logo: "Dr Mitch", always followed straight away by "Doctor of Chiropractic".
+// His surname (site.config.json) is used where a full name helps: Google's clinic data and the home-screen name.
+const NAME = 'Dr Mitch';
 const BRAND = `${NAME}, Doctor of Chiropractic`;
+// The Dr Mitch symbol (a ring around a dumbbell cross). It takes its colour from the text around it.
+// The same drawing is in brand/drmitch-symbol.svg for use outside the website.
+const SYMBOL = '<svg class="mark" viewBox="-50 -50 100 100" aria-hidden="true" focusable="false"><g fill="currentColor"><path fill-rule="evenodd" d="M0-48a48 48 0 1 1 0 96a48 48 0 1 1 0-96zM0-42.74a42.74 42.74 0 1 0 0 85.48a42.74 42.74 0 1 0 0-85.48z"/><rect x="-3" y="-20" width="6" height="40"/><rect x="-18" y="-3" width="36" height="6"/><rect x="-9.8" y="-32.7" width="19.6" height="13.5" rx="3"/><rect x="-9.8" y="19.2" width="19.6" height="13.5" rx="3"/><rect x="-31" y="-9.8" width="13.7" height="19.6" rx="3"/><rect x="17.3" y="-9.8" width="13.7" height="19.6" rx="3"/></g></svg>';
 const directions = address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}` : '';
 const tel = cfg.phone ? cfg.phone.replace(/[^\d+]/g, '') : '';
 
@@ -87,7 +91,7 @@ const jsonLd = () => {
 
 const header = (p) => `<a class="skip" href="#main">Skip to content</a>
 <header class="bar" data-bar>
-  <a class="brand" href="{{link:home}}"><b>${esc(NAME)}<span class="vh">,</span></b><small>Doctor of Chiropractic</small></a>
+  <a class="brand" href="{{link:home}}">${SYMBOL}<span class="brand-text"><b>${esc(NAME)}<span class="vh">,</span></b><small>Doctor of Chiropractic</small></span></a>
   <nav class="nav-wide" aria-label="Main">
     <a href="{{link:home}}#treat">Treatments</a><a href="{{link:home}}#about">About</a><a href="{{link:home}}#questions">Questions</a><a href="{{link:home}}#visit">Visit</a><a class="btn btn-small" href="{{link:book}}">Book</a>
     <span class="nav-ink" aria-hidden="true" data-ink></span>
@@ -117,7 +121,7 @@ const header = (p) => `<a class="skip" href="#main">Skip to content</a>
 
 const footer = `<footer class="foot">
   <div class="foot-in">
-    <div class="sign"><img src="{{base}}assets/img/logo-badge.webp" width="490" height="519" alt="" loading="lazy" decoding="async"><p>${esc(NAME)}<span class="vh">,</span><small>Doctor of Chiropractic</small></p></div>
+    <div class="sign">${SYMBOL}<p>${esc(NAME)}<span class="vh">,</span><small>Doctor of Chiropractic</small></p></div>
     <div class="foot-col">
       <h2 class="foot-h">Contact</h2>
       <address class="foot-contact">

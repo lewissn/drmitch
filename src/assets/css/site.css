@@ -57,7 +57,12 @@ address{font-style:normal}
 .scrolled .bar::before{transform:translateY(calc(var(--settle) * -2))}
 .scrolled .bar>*{transform:translateY(calc(var(--settle) * -1))}
 .scrolled .bar>.brand{transform:translateY(calc(var(--settle) * -1)) scale(.9)}
-.brand{display:inline-flex;flex-direction:column;justify-content:center;min-height:48px;text-decoration:none;transform-origin:0 50%}
+.brand{display:inline-flex;align-items:center;gap:10px;min-height:48px;text-decoration:none;transform-origin:0 50%}
+.brand-text{display:flex;flex-direction:column}
+/* Lockup: the ring overshoots the lettering (cap top of the name to the baseline of the line below) by 6% at each end,
+   the way a circle has to in order to look the same height as text. */
+.brand .mark{width:40px;height:40px;flex:none;margin-top:-1.3px;color:var(--accent);transition:color .25s .15s}
+.menu-open .brand .mark{color:var(--accent-light);transition:color .3s}
 .brand b{font:400 22px/1 var(--serif);letter-spacing:-.005em}
 .brand small{margin-top:4px;font:600 10px/1.2 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .25s .15s}
 .bar-end{display:flex;align-items:center;gap:6px}
@@ -237,8 +242,7 @@ figcaption{margin-top:10px;font-size:15px;line-height:1.4;color:var(--muted)}
 .foot-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px 24px}
 .sign,.foot-col:has(.foot-contact),.foot-small{grid-column:1/-1}
 .sign{display:flex;align-items:center;gap:18px}
-/* Screen blend drops the badge's black background against the night ground. */
-.sign img{width:112px;flex:none;mix-blend-mode:screen}
+.sign .mark{width:47px;height:47px;flex:none;color:var(--night-ink)}
 .sign p{color:var(--night-ink);font:400 22px/1.2 var(--serif)}
 .sign small{display:block;margin-top:6px;font:600 11px/1.3 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--night-muted)}
 .foot-h{margin-bottom:6px;font:600 11px/1.4 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--night-muted)}
