@@ -59,7 +59,7 @@ const tokens = {
 };
 
 const pages = [
-  { src: 'index.html', out: 'index.html', route: '', nest: 0, title: `Chiropractor ${where ? where + ' ' : ''}and sports massage | ${BRAND}`.replace('  ', ' '), desc: `Chiropractic and sports massage ${where}. See prices and book online. ${DR}`.replace('  ', ' '), scripts: ['site.js'] },
+  { src: 'index.html', out: 'index.html', route: '', nest: 0, title: `Chiropractor ${where ? where + ' ' : ''}and sports massage | ${BRAND}`.replace('  ', ' '), desc: `Chiropractic and sports massage${where ? ` ${where}` : ''}. See prices and book online. ${DR}`, scripts: ['site.js'] },
   { src: 'book.html', out: 'book/index.html', route: 'book/', nest: 1, title: `Book an appointment | ${BRAND}`, desc: `Book a chiropractic or sports massage appointment online. ${DR}`, scripts: ['site.js', 'book.js'], noindex: !cfg.bookingUrl },
   { src: 'privacy.html', out: 'privacy/index.html', route: 'privacy/', nest: 1, title: `Privacy notice | ${BRAND}`, desc: 'How Mitch collects, uses and protects your information, and the rights you have over it.', scripts: ['site.js'] },
   { src: 'cookies.html', out: 'cookies/index.html', route: 'cookies/', nest: 1, title: `Cookies | ${BRAND}`, desc: 'This website sets no advertising or analytics cookies. Here is what happens when you pay for a booking.', scripts: ['site.js'] },
