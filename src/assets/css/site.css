@@ -79,7 +79,7 @@ address{font-style:normal}
 .js .scene.play{height:380vh;height:380svh}
 .stage{position:relative;display:flex;flex-direction:column;height:100vh;height:100svh;min-height:560px;overflow:hidden}
 .scene.play .stage{position:sticky;top:0}
-.view{position:relative;flex:1 1 0;min-height:0;margin-bottom:-28px;-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
+.view{position:relative;flex:1 1 0;min-height:0;margin-bottom:-28px;-webkit-mask-image:linear-gradient(transparent 44px,#000 124px,#000 78%,transparent);mask-image:linear-gradient(transparent 44px,#000 124px,#000 78%,transparent)}
 .view img,.view canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 34%}
 .copy{position:relative;flex:none;display:flex;flex-direction:column;gap:12px;padding:0 var(--gutter-r) calc(env(safe-area-inset-bottom,0px) + 16px) var(--gutter)}
 .kicker{font:italic 400 17px/1.3 var(--text)}

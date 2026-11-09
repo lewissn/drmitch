@@ -110,8 +110,9 @@
     while (hi < N - 1 && !frames[hi]) hi++;
     const a = frames[lo], b = frames[hi];
     if (!a && !b) return false;
-    if (a) paint(a, 1); else paint(b, 1);
-    if (a && b && hi !== lo) paint(b, (idx - lo) / (hi - lo));
+    // Show the nearest frame. Blending frames while the camera moves shows a double image.
+    const f = hi > lo ? (idx - lo) / (hi - lo) : 0;
+    paint(!b || (a && f < 0.5) ? a : b, 1);
     return true;
   };
   const frame = (t) => {

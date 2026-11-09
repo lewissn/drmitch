@@ -45,7 +45,7 @@ Website for Mitch, a chiropractor and sports massage therapist in the UK. Lewis 
 
 Started in a Claude session, handed to Claude Code part-way. Not yet checked:
 
-- The full scroll scene with all 64 frames, on a real iPhone and in Safari. Only tested in Chromium's phone emulation, and only with the early frames. Check for jank, memory and ghosting between frames.
+- The full scroll scene with all 64 frames, on a real iPhone and in Safari. Only tested in Chromium's phone emulation so far. Check for jank, memory use and visible stepping between frames. Frames are not blended, because blending showed a double image while the camera moves.
 - The hero at desktop width after its last type-size change.
 - The close-up spine image in the blue "Chiropractic can help with" band at phone width.
 - Lighthouse scores, keyboard use and screen reader pass.
