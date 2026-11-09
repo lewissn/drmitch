@@ -258,7 +258,16 @@ figcaption{margin-top:10px;font-size:15px;line-height:1.4;color:var(--muted)}
 .prose li{margin-top:6px}
 .prose .meta{color:var(--muted);font-size:16px}
 .prose .box{margin-top:16px;padding:16px;border:1px solid var(--hair);border-radius:var(--radius)}
-.prose a{color:var(--accent)}
+.prose a:not(.btn){color:var(--accent)}
+/* "On this page" on the longer legal pages */
+.toc{margin:28px 0 8px;padding:18px 20px 10px;border:1px solid var(--hair);border-radius:12px;background:var(--card)}
+.toc .label{margin-bottom:4px}
+.toc ol{list-style:none;padding:0;margin:0}
+.toc li{margin:0;border-top:1px solid var(--hair)}
+.toc li:first-child{border-top:0}
+.toc a,.toc-links a{display:flex;align-items:center;min-height:44px;font-size:16px;color:var(--ink);text-decoration:none}
+.prose .toc-links{list-style:none;padding:0;margin-top:28px;border-top:1px solid var(--hair)}
+.toc-links li{margin:0;border-bottom:1px solid var(--hair)}
 
 /* Phones and tablets: each section is a sheet that slides up over the one before, like iOS sheets.
    The movement is native sticky positioning, so it is as smooth as ordinary scrolling. site.js adds .sheets
@@ -356,7 +365,7 @@ figcaption{margin-top:10px;font-size:15px;line-height:1.4;color:var(--muted)}
   .foot-small{grid-template-columns:minmax(0,1fr) auto;column-gap:48px;align-items:end}
   .foot-small p:first-child{max-width:720px}
 }
-@media (min-width:960px) and (hover:hover){.foot li a:hover,.foot-contact a:hover{text-decoration:underline}.btn:hover{background:var(--accent-dark)}.more:hover svg{transform:translateX(3px)}.svc-row:hover{transform:translateY(-2px);border-color:rgba(23,23,26,.24);box-shadow:0 14px 34px rgba(23,23,26,.06)}.svc-row:hover .chev{background:var(--accent);border-color:var(--accent);stroke:var(--paper)}.btn-quiet:hover{background:rgba(23,23,26,.05)}.nav-wide a:not(.btn):hover{text-decoration:underline}}
+@media (min-width:960px) and (hover:hover){.toc a:hover,.toc-links a:hover{text-decoration:underline}.foot li a:hover,.foot-contact a:hover{text-decoration:underline}.btn:hover{background:var(--accent-dark)}.more:hover svg{transform:translateX(3px)}.svc-row:hover{transform:translateY(-2px);border-color:rgba(23,23,26,.24);box-shadow:0 14px 34px rgba(23,23,26,.06)}.svc-row:hover .chev{background:var(--accent);border-color:var(--accent);stroke:var(--paper)}.btn-quiet:hover{background:rgba(23,23,26,.05)}.nav-wide a:not(.btn):hover{text-decoration:underline}}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}

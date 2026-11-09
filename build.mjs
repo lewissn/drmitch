@@ -214,8 +214,21 @@ for (const f of fs.readdirSync('src/root')) fs.copyFileSync(`src/root/${f}`, `${
 const manifest = { name: BRAND, short_name: cfg.surname ? `Mitch ${cfg.surname}` : 'Mitch', icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/icon-512.png', sizes: '512x512', type: 'image/png' }], theme_color: '#F3F1EC', background_color: '#F3F1EC', display: 'browser' };
 fs.writeFileSync(`${out}/site.webmanifest`, JSON.stringify(manifest));
 
+// Text pages with four or more sections get an "On this page" list, and every section heading gets an id
+// so other pages can link straight to it (for example the cancellation rules in the booking terms).
+const slug = (s) => s.replace(/<[^>]+>/g, '').toLowerCase().replace(/&[a-z]+;|[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const withContents = (body) => {
+  if (!body.includes('class="prose"')) return body;
+  const heads = [...body.matchAll(/<h2>(.*?)<\/h2>/g)];
+  if (heads.length < 4) return body;
+  const list = heads.map((m) => `<li><a href="#${slug(m[1])}">${m[1]}</a></li>`).join('');
+  const nav = `<nav class="toc" aria-label="On this page"><p class="label">On this page</p><ol>${list}</ol></nav>\n  `;
+  body = body.replace(/<h2>(.*?)<\/h2>/g, (_, t) => `<h2 id="${slug(t)}">${t}</h2>`);
+  return body.replace(/<h2 id=/, nav + '<h2 id=');
+};
+
 for (const p of pages) {
-  const body = fs.readFileSync(`src/pages/${p.src}`, 'utf8');
+  const body = withContents(fs.readFileSync(`src/pages/${p.src}`, 'utf8'));
   const base = p.nest ? '../'.repeat(p.nest) : '';
   let html = render(layout(p, body), base, p.src === 'index.html');
   if (preview && p.out === 'index.html') {
