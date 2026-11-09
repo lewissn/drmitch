@@ -3,17 +3,6 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
-  // Shared menu behaviour
-  const root = document.documentElement, burger = $('[data-burger]'), menu = $('[data-menu]'), main = $('main'), foot = $('footer');
-  const setOpen = (open) => {
-    root.classList.toggle('menu-open', open);
-    burger.setAttribute('aria-expanded', String(open));
-    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    menu.inert = !open; main.inert = open; foot.inert = open;
-  };
-  burger.addEventListener('click', () => setOpen(!root.classList.contains('menu-open')));
-  addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
-
   const STEPS = ['service', 'time', 'details', 'pay', 'done'];
   const NEXT = ['Choose a time', 'Enter your details', 'Go to payment', 'Pay deposit'];
   const SVC = { new: 'New patient consultation', follow: 'Follow-up treatment', massage: 'Sports massage' };
@@ -114,6 +103,10 @@
     go(s + 1);
   });
   $('[data-consent]').addEventListener('change', () => { $('[data-err-consent]').hidden = true; });
+
+  // A treatment link from the homepage (?service=massage) arrives with that treatment already chosen.
+  const chosen = new URLSearchParams(location.search).get('service');
+  if (chosen && SVC[chosen]) form.elements.svc.value = chosen;
 
   renderDays(); renderSlots(); summary(); show(0, false);
   if (location.hash && location.hash !== '#step-service') history.replaceState(null, '', location.pathname);

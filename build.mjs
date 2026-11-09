@@ -15,6 +15,9 @@ const money = (key) => (cfg[key] ? esc(cfg[key]) : todo('£00'));
 const address = [cfg.clinicName, cfg.street, cfg.town, cfg.county, cfg.postcode].filter(Boolean).join(', ');
 const where = cfg.town ? `in ${cfg.town}` : '';
 const DR = '“Dr” is a courtesy title. Mitch is a Doctor of Chiropractic and does not hold a general medical qualification.';
+// The name always appears as "Dr Mitch Ede" followed straight away by "Doctor of Chiropractic".
+const NAME = `Dr Mitch${cfg.surname ? ` ${cfg.surname}` : ''}`;
+const BRAND = `${NAME}, Doctor of Chiropractic`;
 const directions = address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}` : '';
 const tel = cfg.phone ? cfg.phone.replace(/[^\d+]/g, '') : '';
 
@@ -27,6 +30,9 @@ const tokens = {
   parking: v('parking', 'Parking and access'),
   phone: cfg.phone ? `<a href="tel:${tel}">${esc(cfg.phone)}</a>` : todo('Phone'),
   email: cfg.email ? `<a href="mailto:${esc(cfg.email)}">${esc(cfg.email)}</a>` : todo('Email at drmitch.co.uk'),
+  // Until the phone, email or address is filled in, these show as inert buttons; the missing facts are already listed as placeholders.
+  callBtn: cfg.phone ? `<a class="btn btn-quiet" href="tel:${tel}">Call Mitch</a>` : '<span class="btn btn-quiet" aria-disabled="true">Call Mitch</span>',
+  emailBtn: cfg.email ? `<a class="btn btn-quiet" href="mailto:${esc(cfg.email)}">Email Mitch</a>` : '<span class="btn btn-quiet" aria-disabled="true">Email Mitch</span>',
   bio: v('bio', 'Two or three sentences in Mitch’s own words: why he does this, who he mostly sees, what he’s like in the room.'),
   degree: v('degree', 'Doctorate, institution, year'),
   massageQ: v('massageQualification', 'Qualification and awarding body'),
@@ -43,24 +49,25 @@ const tokens = {
   followMin: esc(cfg.followMinutes), followPrice: money('followPrice'),
   massageMin: esc(cfg.massageMinutes), massagePrice: money('massagePrice'),
   dr: DR,
+  brand: esc(BRAND),
   updated: new Date(cfg.lastUpdated).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
-  directions: directions ? `<a class="link" href="${directions}" rel="noopener">Get directions</a>` : ''
+  directions: directions ? `<a class="btn btn-quiet" href="${directions}" rel="noopener">Directions</a>` : '<span class="btn btn-quiet" aria-disabled="true">Directions</span>'
 };
 
 const pages = [
-  { src: 'index.html', out: 'index.html', route: '', nest: 0, title: `Chiropractor ${where ? where + ' ' : ''}and sports massage | Dr Mitch, Doctor of Chiropractic`.replace('  ', ' '), desc: `Chiropractic and sports massage ${where}. See prices and book online. ${DR}`.replace('  ', ' '), scripts: ['site.js'] },
-  { src: 'book.html', out: 'book/index.html', route: 'book/', nest: 1, title: 'Book an appointment | Dr Mitch, Doctor of Chiropractic', desc: `Book a chiropractic or sports massage appointment online. ${DR}`, scripts: ['book.js'], noindex: !cfg.bookingUrl },
-  { src: 'privacy.html', out: 'privacy/index.html', route: 'privacy/', nest: 1, title: 'Privacy notice | Dr Mitch, Doctor of Chiropractic', desc: 'How Mitch collects, uses and protects your information, and the rights you have over it.', scripts: ['legal.js'] },
-  { src: 'cookies.html', out: 'cookies/index.html', route: 'cookies/', nest: 1, title: 'Cookies | Dr Mitch, Doctor of Chiropractic', desc: 'This website sets no advertising or analytics cookies. Here is what happens when you pay for a booking.', scripts: ['legal.js'] },
-  { src: 'terms.html', out: 'terms/index.html', route: 'terms/', nest: 1, title: 'Booking terms | Dr Mitch, Doctor of Chiropractic', desc: 'Deposits, cancelling and changing an appointment, and how to make a complaint.', scripts: ['legal.js'] },
-  { src: '404.html', out: '404.html', route: null, nest: 0, title: 'Page not found | Dr Mitch, Doctor of Chiropractic', desc: 'This page does not exist.', scripts: ['legal.js'], noindex: true }
+  { src: 'index.html', out: 'index.html', route: '', nest: 0, title: `Chiropractor ${where ? where + ' ' : ''}and sports massage | ${BRAND}`.replace('  ', ' '), desc: `Chiropractic and sports massage ${where}. See prices and book online. ${DR}`.replace('  ', ' '), scripts: ['site.js'] },
+  { src: 'book.html', out: 'book/index.html', route: 'book/', nest: 1, title: `Book an appointment | ${BRAND}`, desc: `Book a chiropractic or sports massage appointment online. ${DR}`, scripts: ['site.js', 'book.js'], noindex: !cfg.bookingUrl },
+  { src: 'privacy.html', out: 'privacy/index.html', route: 'privacy/', nest: 1, title: `Privacy notice | ${BRAND}`, desc: 'How Mitch collects, uses and protects your information, and the rights you have over it.', scripts: ['site.js'] },
+  { src: 'cookies.html', out: 'cookies/index.html', route: 'cookies/', nest: 1, title: `Cookies | ${BRAND}`, desc: 'This website sets no advertising or analytics cookies. Here is what happens when you pay for a booking.', scripts: ['site.js'] },
+  { src: 'terms.html', out: 'terms/index.html', route: 'terms/', nest: 1, title: `Booking terms | ${BRAND}`, desc: 'Deposits, cancelling and changing an appointment, and how to make a complaint.', scripts: ['site.js'] },
+  { src: '404.html', out: '404.html', route: null, nest: 0, title: `Page not found | ${BRAND}`, desc: 'This page does not exist.', scripts: ['site.js'], noindex: true }
 ];
 
 const jsonLd = () => {
   const d = {
     '@context': 'https://schema.org', '@type': 'MedicalClinic',
     '@id': `${url}/#clinic`,
-    name: cfg.clinicName || 'Dr Mitch, Doctor of Chiropractic',
+    name: cfg.clinicName || BRAND,
     url: `${url}/`,
     image: `${url}/assets/img/og.jpg`,
     medicalSpecialty: 'Chiropractic',
@@ -80,49 +87,78 @@ const jsonLd = () => {
 
 const header = (p) => `<a class="skip" href="#main">Skip to content</a>
 <header class="bar" data-bar>
-  <a class="brand" href="{{link:home}}">Dr Mitch, Doctor of Chiropractic</a>
+  <a class="brand" href="{{link:home}}"><b>${esc(NAME)}<span class="vh">,</span></b><small>Doctor of Chiropractic</small></a>
   <nav class="nav-wide" aria-label="Main">
-    <a href="{{link:home}}#treat">Treatments</a><a href="{{link:home}}#about">About</a><a href="{{link:home}}#visit">Visit</a><a class="btn btn-small" href="{{link:book}}">Book</a>
+    <a href="{{link:home}}#treat">Treatments</a><a href="{{link:home}}#about">About</a><a href="{{link:home}}#questions">Questions</a><a href="{{link:home}}#visit">Visit</a><a class="btn btn-small" href="{{link:book}}">Book</a>
+    <span class="nav-ink" aria-hidden="true" data-ink></span>
   </nav>
-  <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu" data-burger><span></span><span></span><span></span></button>
+  <div class="bar-end">
+    <a class="btn btn-small bar-book" href="{{link:book}}">Book</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu" data-burger><span></span><span></span><span></span></button>
+  </div>
 </header>
 <div class="menu" id="menu" data-menu inert>
   <div class="menu-in">
-    <span class="menu-line" aria-hidden="true"></span>
     <nav aria-label="Menu">
       <ul>
-        <li><a href="{{link:home}}#treat"><span>Treatments</span></a></li>
-        <li><a href="{{link:home}}#first"><span>Your first visit</span></a></li>
-        <li><a href="{{link:home}}#about"><span>About Mitch</span></a></li>
-        <li><a href="{{link:home}}#questions"><span>Questions</span></a></li>
-        <li><a href="{{link:home}}#visit"><span>Visit</span></a></li>
+        <li><a href="{{link:home}}#treat">Treatments</a></li>
+        <li><a href="{{link:home}}#first">Your first visit</a></li>
+        <li><a href="{{link:home}}#about">About Mitch</a></li>
+        <li><a href="{{link:home}}#questions">Questions</a></li>
+        <li><a href="{{link:home}}#visit">Visit</a></li>
       </ul>
     </nav>
     <div class="menu-foot">
-      <a class="btn btn-cobalt" href="{{link:book}}">Book an appointment</a>
+      <a class="btn" href="{{link:book}}">Book an appointment</a>
       <p>${cfg.phone ? tokens.phone : todo('Phone')}</p>
     </div>
   </div>
 </div>`;
 
 const footer = `<footer class="foot">
-  <div class="wrap foot-in">
-    <p>Dr Mitch, Doctor of Chiropractic. ${DR} Registered with the General Chiropractic Council, no. {{gcc}}. Online payments are processed by Stripe.</p>
-    <ul>
-      <li><a href="https://www.gcc-uk.org/" rel="noopener">Check the GCC register</a></li>
-      <li><a href="{{link:privacy}}">Privacy</a></li>
-      <li><a href="{{link:cookies}}">Cookies</a></li>
-      <li><a href="{{link:terms}}">Booking terms</a></li>
-    </ul>
+  <div class="foot-in">
+    <div class="sign"><img src="{{base}}assets/img/logo-badge.webp" width="490" height="519" alt="" loading="lazy" decoding="async"><p>${esc(NAME)}<span class="vh">,</span><small>Doctor of Chiropractic</small></p></div>
+    <div class="foot-col">
+      <h2 class="foot-h">Contact</h2>
+      <address class="foot-contact">
+        <p>{{phone}}</p>
+        <p>{{email}}</p>
+        <p>{{address}}</p>
+        <p>{{hours}}</p>
+      </address>
+    </div>
+    <nav class="foot-col" aria-label="Footer">
+      <h2 class="foot-h">Visit the site</h2>
+      <ul>
+        <li><a href="{{link:home}}#treat">Treatments and prices</a></li>
+        <li><a href="{{link:home}}#first">Your first visit</a></li>
+        <li><a href="{{link:home}}#about">About Mitch</a></li>
+        <li><a href="{{link:home}}#questions">Questions</a></li>
+        <li><a href="{{link:home}}#visit">Finding the clinic</a></li>
+        <li><a href="{{link:book}}">Book an appointment</a></li>
+      </ul>
+    </nav>
+    <div class="foot-col">
+      <h2 class="foot-h">Policies</h2>
+      <ul>
+        <li><a href="{{link:privacy}}">Privacy</a></li>
+        <li><a href="{{link:cookies}}">Cookies</a></li>
+        <li><a href="{{link:terms}}">Booking terms</a></li>
+        <li><a href="https://www.gcc-uk.org/" rel="noopener">Check the GCC register</a></li>
+      </ul>
+    </div>
+    <div class="foot-small">
+      <p>${DR} Registered with the General Chiropractic Council, no. {{gcc}}. Online payments are processed by Stripe.</p>
+      <p>© ${new Date().getFullYear()} {{legalName}}</p>
+    </div>
   </div>
 </footer>`;
 
-const fonts = ['caslon-display.woff2', 'hanken-400.woff2'];
+const fonts = ['newsreader.woff2', 'hanken-400.woff2'];
 const layout = (p, body) => {
   const canonical = p.route === null ? '' : `<link rel="canonical" href="${url}/${p.route}">`;
   const noindex = (!cfg.launched || p.noindex) ? '<meta name="robots" content="noindex">' : '';
   const preload = fonts.map((f) => `<link rel="preload" href="{{base}}assets/fonts/${f}" as="font" type="font/woff2" crossorigin>`).join('\n');
-  const poster = p.src === 'index.html' ? '<link rel="preload" href="{{base}}assets/seq/720-000.webp" as="image" fetchpriority="high">' : '';
   return `<!doctype html>
 <html lang="en-GB">
 <head>
@@ -130,12 +166,12 @@ const layout = (p, body) => {
 <title>${esc(p.title)}</title>
 <meta name="description" content="${esc(p.desc)}">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1A2BA8">
+<meta name="theme-color" content="#F3F1EC">
 ${noindex}
 ${canonical}
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_GB">
-<meta property="og:site_name" content="Dr Mitch, Doctor of Chiropractic">
+<meta property="og:site_name" content="${esc(BRAND)}">
 <meta property="og:title" content="${esc(p.title)}">
 <meta property="og:description" content="${esc(p.desc)}">
 <meta property="og:url" content="${url}/${p.route ?? ''}">
@@ -148,7 +184,6 @@ ${canonical}
 <link rel="apple-touch-icon" href="{{base}}apple-touch-icon.png">
 <link rel="manifest" href="{{base}}site.webmanifest">
 ${preload}
-${poster}
 <link rel="stylesheet" href="{{base}}assets/css/site.css">
 ${p.src === 'index.html' ? `<script type="application/ld+json">${jsonLd()}</script>` : ''}
 <script>document.documentElement.classList.add('js')</script>
@@ -176,6 +211,8 @@ const render = (s, base, home) => s
 fs.rmSync(out, { recursive: true, force: true });
 fs.cpSync('src/assets', `${out}/assets`, { recursive: true });
 for (const f of fs.readdirSync('src/root')) fs.copyFileSync(`src/root/${f}`, `${out}/${f}`);
+const manifest = { name: BRAND, short_name: cfg.surname ? `Mitch ${cfg.surname}` : 'Mitch', icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/icon-512.png', sizes: '512x512', type: 'image/png' }], theme_color: '#F3F1EC', background_color: '#F3F1EC', display: 'browser' };
+fs.writeFileSync(`${out}/site.webmanifest`, JSON.stringify(manifest));
 
 for (const p of pages) {
   const body = fs.readFileSync(`src/pages/${p.src}`, 'utf8');
@@ -195,5 +232,8 @@ fs.writeFileSync(`${out}/robots.txt`, cfg.launched
 const indexed = pages.filter((p) => p.route !== null && !p.noindex);
 fs.writeFileSync(`${out}/sitemap.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexed.map((p) => `  <url><loc>${url}/${p.route}</loc><lastmod>${cfg.lastUpdated}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 const left = [...new Set(pages.flatMap((p) => [...render(layout(p, fs.readFileSync(`src/pages/${p.src}`, 'utf8')), '').matchAll(/class="todo">\[([^\]]+)\]/g)].map((m) => m[1])))];
+// photo-*.webp are temporary stock photos (credited in README.md); replace each with Mitch's own before launch.
+const stock = [...new Set(fs.readdirSync('src/assets/img').filter((f) => f.startsWith('photo-')).map((f) => f.replace(/-\d+\.webp$/, '')))];
+left.push(...stock.map((f) => `Temporary stock photo: ${f}`));
 console.log(`Built ${out}. ${left.length} placeholders left to fill.`);
 if (left.length) console.log(left.map((l) => `  - ${l}`).join('\n'));

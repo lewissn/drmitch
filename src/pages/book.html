@@ -1,6 +1,6 @@
 <div class="book" data-book>
   <div class="book-top">
-    <p class="book-step" data-steplabel>Step 1 of 4</p>
+    <p class="label book-step" data-steplabel>Step 1 of 4</p>
     <div class="book-prog" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   </div>
 
@@ -43,7 +43,7 @@
         <h1>Pay your deposit</h1>
         <p class="note first">Your deposit holds the appointment. The balance is paid at the clinic.</p>
         <p class="mock">Preview of the payment step. No card details are collected and nothing is charged.</p>
-        <div class="card">
+        <div class="paycard">
           <div class="f wide"><label for="card">Card number</label><input id="card" readonly value="•••• •••• •••• 4242"></div>
           <div class="f"><label for="exp">Expiry</label><input id="exp" readonly value="MM / YY"></div>
           <div class="f"><label for="cvc">Security code</label><input id="cvc" readonly value="•••"></div>
@@ -66,12 +66,12 @@
 
       <div class="book-nav" data-nav>
         <button class="back" type="button" data-back hidden>Go back</button>
-        <button class="btn btn-cobalt" type="submit" data-next>Choose a time</button>
+        <button class="btn" type="submit" data-next>Choose a time</button>
       </div>
     </form>
 
     <aside class="sum" aria-label="Your booking" data-sum>
-      <h2>Your booking</h2>
+      <h2 class="label">Your booking</h2>
       <p class="sum-name" data-sum-svc></p>
       <p class="sum-when" data-sum-when>Time not chosen yet</p>
       <div class="sum-row"><span>Due today (deposit)</span><b>{{deposit}}</b></div>

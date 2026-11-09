@@ -1,6 +1,5 @@
 (() => {
   'use strict';
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -27,111 +26,91 @@
     matchMedia('(min-width: 960px)').addEventListener('change', (e) => { if (e.matches) setOpen(false, false); });
   }
 
-  /* ---------- Top bar and booking dock ---------- */
-  const bar = $('[data-bar]');
-  const scene = $('[data-scene]');
-  const dock = $('[data-dock]');
-  const visit = $('[data-visit]');
-  let visitOn = false;
-  if (visit && dock) new IntersectionObserver(([e]) => { visitOn = e.isIntersecting; onScroll(); }, { rootMargin: '0px 0px -20% 0px' }).observe(visit);
-  let last = scrollY;
-  function onScroll() {
-    const y = scrollY;
-    const end = scene ? scene.offsetTop + scene.offsetHeight - innerHeight : 0;
-    const past = !scene || y > end + 40;
-    bar.classList.toggle('solid', past);
-    bar.classList.toggle('away', past && y > last + 2 && !root.classList.contains('menu-open'));
-    if (y < last - 2) bar.classList.remove('away');
-    if (dock) dock.classList.toggle('show', past && !visitOn);
-    last = y;
-  }
+  /* ---------- The top bar settles into a slimmer bar once the page scrolls ---------- */
+  let scrolled = null;
+  const onScroll = () => {
+    const s = scrollY > 16;
+    if (s !== scrolled) { scrolled = s; root.classList.toggle('scrolled', s); }
+  };
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ---------- The scroll scene ---------- */
-  const canvas = $('[data-canvas]');
-  if (!scene || !canvas || reduce) return;
-  scene.classList.add('play');
-  const stageH = () => $('.stage', scene).offsetHeight;
-  const ctx = canvas.getContext('2d', { alpha: false });
-  const N = 64;
-  const base = $('.poster', scene).getAttribute('src').replace(/720-000\.webp$/, '');
-  const frames = new Array(N).fill(null);
-  const conn = navigator.connection || {};
-  const thrifty = conn.saveData || (navigator.deviceMemory && navigator.deviceMemory <= 2);
-  const width = () => canvas.clientWidth * Math.min(devicePixelRatio || 1, 2.5);
-  const size = width() > 800 ? 1080 : 720;
+  /* ---------- Phones: sections stack like iOS sheets ---------- */
+  // Sticky positioning does the movement. This measures each section so a tall one only sticks once its end
+  // is on screen, and dims whatever is being covered.
+  const narrow = matchMedia('(max-width: 959px)');
+  const sections = $$('main > section');
+  if (sections.length > 1 && $('[data-hero]')) {
+    const foot = $('footer');
+    const covers = [...sections.slice(1), foot].filter(Boolean);
+    // Markers sit in the normal flow just above each sheet, so in-page links can find a sheet's real place.
+    const marks = covers.map((el) => { const m = document.createElement('div'); m.className = 'snap'; m.setAttribute('aria-hidden', 'true'); el.before(m); return m; });
+    const lip = 24;
+    const heroPhoto = $('.hero-photo');
+    const pairs = [[heroPhoto, $('.hero-copy')], ...sections.map((s, i) => [s, covers[i]])].filter(([a, b]) => a && b);
+    const measure = () => { sections.forEach((s) => s.style.setProperty('--h', `${s.offsetHeight}px`)); };
+    new ResizeObserver(measure).observe($('main'));
+    measure();
+    const stickTop = () => parseFloat(getComputedStyle($('[data-bar]')).paddingTop) + parseFloat(getComputedStyle(root).getPropertyValue('--bar-h')) - 2 * parseFloat(getComputedStyle(root).getPropertyValue('--settle'));
+    let queued = false;
+    const dim = () => {
+      queued = false;
+      const stick = stickTop();
+      for (const [under, over] of pairs) {
+        // 0 while the next sheet is still just behind this one's end, 1 once it reaches the header.
+        const from = Math.max(stick + 1, under.getBoundingClientRect().bottom - lip);
+        const p = Math.min(1, Math.max(0, (from - over.getBoundingClientRect().top) / (from - stick)));
+        under.style.setProperty('--dim', (p * p * 0.32).toFixed(3));
+      }
+    };
+    const onScrollDim = () => { if (!queued) { queued = true; requestAnimationFrame(dim); } };
+    const setMode = () => {
+      root.classList.toggle('sheets', narrow.matches);
+      if (narrow.matches) { measure(); addEventListener('scroll', onScrollDim, { passive: true }); dim(); }
+      else { removeEventListener('scroll', onScrollDim); pairs.forEach(([under]) => under.style.removeProperty('--dim')); }
+    };
+    narrow.addEventListener('change', setMode);
+    setMode();
+    // In-page links go to the sheet's own place in the page, not where a stuck sheet happens to be drawn.
+    const goTo = (section, smooth) => {
+      const mark = marks[covers.indexOf(section)];
+      if (!mark) return false;
+      scrollTo({ top: mark.offsetTop - lip - stickTop(), behavior: smooth ? 'smooth' : 'instant' });
+      return true;
+    };
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href*="#"]');
+      if (!a || !narrow.matches || a.pathname !== location.pathname) return;
+      const target = document.getElementById(a.hash.slice(1));
+      if (target && goTo(target, !matchMedia('(prefers-reduced-motion: reduce)').matches)) { e.preventDefault(); history.pushState(null, '', a.hash); }
+    });
+    if (location.hash && narrow.matches) { const t = document.getElementById(location.hash.slice(1)); if (t) addEventListener('load', () => goTo(t, false), { once: true }); }
+  }
 
-  // Coarse frames first, so the whole scroll works early and sharpens as more arrive.
-  const order = [];
-  const seen = new Set();
-  for (const step of thrifty ? [8, 4, 2] : [16, 8, 4, 2, 1]) for (let i = 0; i < N; i += step) if (!seen.has(i)) { seen.add(i); order.push(i); }
-  if (!seen.has(N - 1)) order.push(N - 1);
-  let cursor = 0;
-  const pump = () => {
-    if (cursor >= order.length) return;
-    const i = order[cursor++];
-    const im = new Image();
-    im.decoding = 'async';
-    im.onload = () => { frames[i] = im; dirty = true; kick(); pump(); };
-    im.onerror = pump;
-    im.src = `${base}${size}-${String(i).padStart(3, '0')}.webp`;
+  /* ---------- Desktop: a line under the nav link for the section in view ---------- */
+  const ink = $('[data-ink]');
+  const links = $$('.nav-wide a[href^="#"]');
+  if (!ink || !links.length) return;
+  const byId = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
+  let current = null;
+  const place = (animate = true) => {
+    if (!current) { ink.style.opacity = 0; return; }
+    if (!animate) ink.style.transition = 'none';
+    ink.style.transform = `translateX(${current.offsetLeft}px) scaleX(${current.offsetWidth})`;
+    ink.style.opacity = 1;
+    if (!animate) { ink.getBoundingClientRect(); ink.style.transition = ''; }
   };
-  const startLoading = () => { for (let k = 0; k < 4; k++) pump(); };
-  if (document.readyState === 'complete') startLoading(); else addEventListener('load', startLoading, { once: true });
-
-  const fit = () => {
-    const w = Math.round(canvas.clientWidth * Math.min(devicePixelRatio || 1, 2));
-    const h = Math.round(canvas.clientHeight * Math.min(devicePixelRatio || 1, 2));
-    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; dirty = true; kick(); }
-  };
-  const paint = (im, alpha) => {
-    const iw = im.naturalWidth, ih = im.naturalHeight, cw = canvas.width, ch = canvas.height;
-    const s = Math.max(cw / iw, ch / ih), dw = iw * s, dh = ih * s;
-    ctx.globalAlpha = alpha;
-    ctx.drawImage(im, (cw - dw) / 2, (ch - dh) * 0.34, dw, dh);
-  };
-
-  const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
-  const reel = $('[data-reel]');
-  const subs = $$('[data-sub]');
-  const cue = $('[data-cue]');
-  let target = 0, cur = 0, shown = -1, running = false, dirty = true, chapter = 0, lastT = 0;
-
-  const read = () => {
-    const top = scene.getBoundingClientRect().top;
-    const span = scene.offsetHeight - stageH();
-    target = Math.min(1, Math.max(0, -top / span));
-    if (cue) cue.classList.toggle('gone', -top > 40);
-  };
-  const draw = (idx) => {
-    let lo = Math.floor(idx), hi = Math.ceil(idx);
-    while (lo > 0 && !frames[lo]) lo--;
-    while (hi < N - 1 && !frames[hi]) hi++;
-    const a = frames[lo], b = frames[hi];
-    if (!a && !b) return false;
-    if (a) paint(a, 1); else paint(b, 1);
-    if (a && b && hi !== lo) paint(b, (idx - lo) / (hi - lo));
-    return true;
-  };
-  const frame = (t) => {
-    const dt = Math.min(50, t - (lastT || t)); lastT = t;
-    cur += (target - cur) * (1 - Math.pow(0.0018, dt / 1000 * 2.2));
-    if (Math.abs(target - cur) < 0.0004) cur = target;
-    const idx = cur * (N - 1);
-    if (dirty || Math.abs(idx - shown) > 0.002) { if (draw(idx)) { shown = idx; dirty = false; canvas.style.opacity = 1; } }
-    const w = smooth(.30, .37, cur) + smooth(.62, .70, cur) + smooth(.86, .93, cur);
-    reel.style.setProperty('--w', w.toFixed(4));
-    const c = Math.round(w);
-    if (c !== chapter) { subs[chapter].classList.remove('on'); subs[c].classList.add('on'); chapter = c; }
-    if (cur !== target || dirty) requestAnimationFrame(frame);
-    else { running = false; lastT = 0; }
-  };
-  function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }
-
-  canvas.style.opacity = 0;
-  addEventListener('scroll', () => { read(); kick(); }, { passive: true });
-  addEventListener('resize', () => { fit(); read(); kick(); });
-  new ResizeObserver(fit).observe(canvas);
-  fit(); read(); kick();
+  // A thin band across the upper middle of the screen decides which section is "in view".
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      const wasHidden = !current;
+      current = byId.get(e.target.id) || null;
+      links.forEach((a) => (a === current ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current')));
+      place(!wasHidden);
+    }
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  $$('[data-hero], main section[id]').forEach((s) => io.observe(s));
+  addEventListener('resize', () => place(false));
+  document.fonts?.ready.then(() => place(false));
 })();

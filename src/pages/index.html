@@ -1,101 +1,123 @@
-<section class="scene" data-scene aria-label="Introduction">
-  <div class="stage">
-    <div class="view" aria-hidden="true">
-      <img class="poster" src="{{base}}assets/seq/720-000.webp" width="720" height="1000" alt="" fetchpriority="high" decoding="async">
-      <canvas data-canvas></canvas>
-    </div>
-    <div class="copy">
-      <h1 class="kicker">Chiropractic and sports massage in {{town}}</h1>
-      <p class="display">
-        <span class="vh">Let’s have a look at that back.</span>
-        <span aria-hidden="true">Let’s have<br class="m"> a look<br class="d"> at<br class="m"> that <span class="reel"><span class="reel-in" data-reel><span>neck.</span><span>shoulder.</span><span>back.</span><span>spine.</span></span></span></span>
-      </p>
-      <div class="subs" aria-hidden="true">
-        <p class="on" data-sub>Mechanical neck pain and headaches arising from the neck.</p>
-        <p data-sub>Shoulder pain and dysfunction, and rotator cuff problems.</p>
-        <p data-sub>Acute or long-standing backache, lumbago and sciatica.</p>
-        <p data-sub>See what Mitch treats, what it costs and when he can see you.</p>
-      </div>
+<section class="hero" data-hero aria-label="Introduction">
+  <div class="wrap hero-in">
+    <figure class="hero-photo">
+      <img src="{{base}}assets/img/photo-hero-800.webp" srcset="{{base}}assets/img/photo-hero-800.webp 800w, {{base}}assets/img/photo-hero-1400.webp 1400w" sizes="(min-width: 960px) 44vw, 100vw" width="800" height="1000" alt="Hands-on treatment of a patient’s upper back" fetchpriority="high">
+    </figure>
+    <div class="hero-copy">
+      <h1 class="display">Understand what’s going on. <em>Then</em> decide.</h1>
+      <p class="sub"><strong>Chiropractic and sports massage in {{town}}.</strong> Every first appointment with Mitch starts with a thorough examination and a straight explanation, before any treatment.</p>
       <div class="actions">
         <a class="btn" href="{{link:book}}">Book an appointment</a>
-        <a class="link" href="#treat">See prices and treatments</a>
+        <a class="more" href="#treat">See prices and treatments<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
       </div>
-      <p class="dr">{{dr}}</p>
-    </div>
-    <span class="cue" aria-hidden="true" data-cue></span>
-  </div>
-</section>
-
-<section class="sec" id="treat">
-  <div class="wrap split">
-    <h2 class="h2 blue">Appointments and prices</h2>
-    <div class="rows">
-      <article class="row">
-        <div><h3>New patient consultation</h3><p>Chiropractic. History, examination, explanation and first treatment if suitable.</p></div>
-        <p class="price"><span>{{newMin}} min</span><b>{{newPrice}}</b></p>
-        <a class="link" href="{{link:book}}">Book this<span class="vh">: new patient consultation</span></a>
-      </article>
-      <article class="row">
-        <div><h3>Follow-up treatment</h3><p>Chiropractic. For existing patients.</p></div>
-        <p class="price"><span>{{followMin}} min</span><b>{{followPrice}}</b></p>
-        <a class="link" href="{{link:book}}">Book this<span class="vh">: follow-up treatment</span></a>
-      </article>
-      <article class="row">
-        <div><h3>Sports massage</h3><p>Hands-on soft tissue work for tight, tired muscles.</p></div>
-        <p class="price"><span>{{massageMin}} min</span><b>{{massagePrice}}</b></p>
-        <a class="link" href="{{link:book}}">Book this<span class="vh">: sports massage</span></a>
-      </article>
     </div>
   </div>
-</section>
-
-<section class="band">
-  <div class="band-copy">
-    <h2 class="h2">Chiropractic can help with</h2>
-    <ul class="conds">
-      <li>General, acute and long-standing back pain</li>
-      <li>Lumbago</li>
-      <li>Sciatica</li>
-      <li>Mechanical neck pain</li>
-      <li>Headaches arising from the neck</li>
-      <li>Migraine prevention</li>
-      <li>Shoulder pain and dysfunction</li>
-      <li>Rotator cuff problems</li>
-      <li>Joint pains</li>
-      <li>Minor sports injuries</li>
-      <li>Muscle spasms and cramp</li>
-      <li>Tension and inability to relax</li>
-    </ul>
-    <p class="small">Also short-term management of ankle sprains and plantar fasciitis, and hip or knee pain from osteoarthritis alongside your core treatment and exercise. If your back or neck pain started after an accident or injury, call Mitch before booking.</p>
-    <h3 class="h3">Sports massage</h3>
-    <p class="lead">Book it before an event, after one, or in the middle of a heavy training block. You’ll tell Mitch what’s tight and what you’re training for, and he’ll work from there.</p>
+  <div class="wrap hero-foot">
+    <dl class="hero-facts">
+      <div><dt>First appointment</dt><dd>{{newMin}} minutes, {{newPrice}}</dd></div>
+      <div><dt>Regulated by</dt><dd>General Chiropractic Council</dd></div>
+      <div><dt>GP referral</dt><dd>Not needed</dd></div>
+    </dl>
+    <p class="dr">{{dr}}</p>
   </div>
-  <div class="band-img" aria-hidden="true"><img src="{{base}}assets/img/spine-lumbar.webp" alt="" width="933" height="1679" loading="lazy" decoding="async"></div>
 </section>
 
-<section class="sec" id="first">
+<section class="sec sand" id="treat">
   <div class="wrap">
-    <h2 class="h2 blue">Your first visit</h2>
-    <ol class="steps">
-      <li><span aria-hidden="true">1</span><h3>Talk</h3><p>Your history, what’s bothering you, what you’ve tried and what you want to get back to.</p></li>
-      <li><span aria-hidden="true">2</span><h3>Examine</h3><p>How you move, plus the orthopaedic and neurological tests that are relevant to you.</p></li>
-      <li><span aria-hidden="true">3</span><h3>Explain</h3><p>What Mitch thinks is going on, your options, the risks and the likely cost. You decide what happens next.</p></li>
-      <li><span aria-hidden="true">4</span><h3>Treat or refer</h3><p>If chiropractic is right for you, treatment can start that day. If it isn’t, he’ll say so and tell you who to see.</p></li>
-    </ol>
+    <header class="sec-head">
+      <p class="label">Treatments</p>
+      <h2 class="h2">Appointments and prices</h2>
+      <p class="intro">Book online. A small deposit holds your appointment, and the rest is paid at the clinic.</p>
+    </header>
+    <ul class="svc-list">
+      <li><a class="svc-row" href="{{link:book}}?service=new">
+        <span class="svc-main"><span class="vh">Book: </span><span class="tag">New patients start here</span><b>New patient consultation</b><span class="svc-desc">History, examination, explanation and first treatment if suitable.</span><span class="svc-mins">{{newMin}} minutes</span></span>
+        <span class="svc-price">{{newPrice}}</span><svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+      </a></li>
+      <li><a class="svc-row" href="{{link:book}}?service=follow">
+        <span class="svc-main"><span class="vh">Book: </span><b>Follow-up treatment</b><span class="svc-desc">For existing patients, to carry on with your plan.</span><span class="svc-mins">{{followMin}} minutes</span></span>
+        <span class="svc-price">{{followPrice}}</span><svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+      </a></li>
+      <li><a class="svc-row" href="{{link:book}}?service=massage">
+        <span class="svc-main"><span class="vh">Book: </span><b>Sports massage</b><span class="svc-desc">Hands-on soft tissue work for tight, tired muscles.</span><span class="svc-mins">{{massageMin}} minutes</span></span>
+        <span class="svc-price">{{massagePrice}}</span><svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+      </a></li>
+    </ul>
+    <p class="svc-help">Not sure which to book? Start with a consultation, or call Mitch on {{phone}}.</p>
   </div>
 </section>
 
-<section class="sec deep" id="about">
-  <div class="wrap about">
-    <figure>
-      <img src="{{base}}assets/img/spine-neck.webp" alt="Placeholder image, to be replaced with a photo of Mitch" width="1080" height="1350" loading="lazy" decoding="async">
+<section class="sec deep">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="label">What Mitch treats</p>
+      <h2 class="h2">Chiropractic can help with</h2>
+    </header>
+    <div class="conds">
+      <div class="cond"><h3>Back</h3><ul><li>General, acute and long-standing back pain</li><li>Lumbago</li><li>Sciatica</li></ul></div>
+      <div class="cond"><h3>Neck and head</h3><ul><li>Mechanical neck pain</li><li>Headaches arising from the neck</li><li>Migraine prevention</li></ul></div>
+      <div class="cond"><h3>Shoulders</h3><ul><li>Shoulder pain and dysfunction</li><li>Rotator cuff problems</li></ul></div>
+      <div class="cond"><h3>Muscles and joints</h3><ul><li>Joint pains</li><li>Minor sports injuries</li><li>Muscle spasms and cramp</li><li>Tension and inability to relax</li></ul></div>
+    </div>
+    <p class="small">Also short-term management of ankle sprains and plantar fasciitis, and hip or knee pain from osteoarthritis alongside your core treatment and exercise.</p>
+    <p class="callout"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5"/><path d="M10 9v5M10 6.2v.1"/></svg><span>If your back or neck pain started after an accident or injury, call Mitch before booking.</span></p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap feature">
+    <figure class="photo"><img src="{{base}}assets/img/photo-massage-800.webp" srcset="{{base}}assets/img/photo-massage-800.webp 800w, {{base}}assets/img/photo-massage-1400.webp 1400w" sizes="(min-width: 960px) 45vw, 100vw" width="800" height="1200" alt="A massage therapist working on tight back muscles" loading="lazy" decoding="async"></figure>
+    <div>
+      <p class="label">Sports massage</p>
+      <h2 class="h2">For training, events and everything in between</h2>
+      <p class="lead">Tell Mitch what’s tight and what you’re training for, and he’ll work from there.</p>
+      <ul class="moments">
+        <li>Before an event</li>
+        <li>After an event</li>
+        <li>In the middle of a heavy training block</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="{{link:book}}?service=massage">Book a sports massage</a>
+        <span class="meta">{{massageMin}} minutes · {{massagePrice}}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sand" id="first">
+  <div class="wrap feature flip">
+    <figure class="photo"><img src="{{base}}assets/img/photo-examine-800.webp" srcset="{{base}}assets/img/photo-examine-800.webp 800w, {{base}}assets/img/photo-examine-1400.webp 1400w" sizes="(min-width: 960px) 45vw, 100vw" width="800" height="533" alt="A patient’s leg being examined on a treatment table" loading="lazy" decoding="async"></figure>
+    <div>
+      <p class="label">Your first visit</p>
+      <h2 class="h2">What happens when you come in</h2>
+      <p class="lead">Your first appointment lasts {{newMin}} minutes. Here’s how it goes.</p>
+      <ol class="steps">
+        <li><span aria-hidden="true">1</span><div><h3>Talk</h3><p>Your history, what’s bothering you, what you’ve tried and what you want to get back to.</p></div></li>
+        <li><span aria-hidden="true">2</span><div><h3>Examine</h3><p>How you move, plus the orthopaedic and neurological tests that are relevant to you.</p></div></li>
+        <li><span aria-hidden="true">3</span><div><h3>Explain</h3><p>What Mitch thinks is going on, your options, the risks and the likely cost. You decide what happens next.</p></div></li>
+        <li><span aria-hidden="true">4</span><div><h3>Treat or refer</h3><p>If chiropractic is right for you, treatment can start that day. If it isn’t, he’ll say so and tell you who to see.</p></div></li>
+      </ol>
+      <div class="actions">
+        <a class="btn" href="{{link:book}}?service=new">Book a new patient consultation</a>
+        <span class="meta">{{newMin}} minutes · {{newPrice}}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="about">
+  <div class="wrap feature">
+    <figure class="photo placeholder">
+      <div aria-hidden="true"><span class="label">Photo of Mitch</span></div>
       <figcaption><span class="todo">[Real photo of Mitch at work in the clinic]</span></figcaption>
     </figure>
     <div>
-      <h2 class="h2">About Mitch</h2>
+      <p class="label">About Mitch</p>
+      <h2 class="h2">The person you’ll see</h2>
       <p class="bio">{{bio}}</p>
+      <p class="sig">Mitch</p>
       <dl class="facts">
-        <div><dt>Regulator</dt><dd>General Chiropractic Council, no. {{gcc}}</dd></div>
+        <div><dt>Regulator</dt><dd>General Chiropractic Council, no. {{gcc}}<a class="verify" href="https://www.gcc-uk.org/" rel="noopener">Check the register<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3L4 12"/></svg></a></dd></div>
         <div><dt>Doctorate</dt><dd>{{degree}}</dd></div>
         <div><dt>Sports massage</dt><dd>{{massageQ}}</dd></div>
         <div><dt>Member of</dt><dd>{{association}}</dd></div>
@@ -104,41 +126,65 @@
   </div>
 </section>
 
-<section class="sec" id="questions">
-  <div class="wrap split">
-    <h2 class="h2 blue">Questions</h2>
+<section class="sec sand" id="questions">
+  <div class="wrap narrow">
+    <header class="sec-head">
+      <p class="label">Questions</p>
+      <h2 class="h2">Before you book</h2>
+    </header>
     <div class="faq">
-      <details open><summary>Why is he called Dr Mitch?</summary><div><p>“Dr” is a courtesy title available to chiropractors registered with the General Chiropractic Council. Mitch is a Doctor of Chiropractic. He is not a medical doctor and does not hold a general medical qualification.</p></div></details>
-      <details><summary>Do I need a GP referral?</summary><div><p>No, you can book directly. With your permission, Mitch can write to your GP about your care.</p></div></details>
-      <details><summary>What should I wear?</summary><div><p>Something comfortable you can move in. Shorts are useful if it’s your hips, knees or legs.</p></div></details>
-      <details><summary>Can I claim on private health insurance?</summary><div><p>{{insurers}}</p></div></details>
-      <details><summary>What if I need to cancel?</summary><div><p>Please give at least {{notice}}. The full rules are in the <a href="{{link:terms}}">booking terms</a>.</p></div></details>
+      <details name="faq" open><summary>Why does he use the title “Dr”?</summary><div><p>“Dr” is a courtesy title available to chiropractors registered with the General Chiropractic Council. Mitch is a Doctor of Chiropractic. He is not a medical doctor and does not hold a general medical qualification.</p></div></details>
+      <details name="faq"><summary>Do I need a GP referral?</summary><div><p>No, you can book directly. With your permission, Mitch can write to your GP about your care.</p></div></details>
+      <details name="faq"><summary>How long are appointments?</summary><div><p>A new patient consultation is {{newMin}} minutes. Follow-up treatments are {{followMin}} minutes, and a sports massage is {{massageMin}} minutes.</p></div></details>
+      <details name="faq"><summary>What should I wear?</summary><div><p>Something comfortable you can move in. Shorts are useful if it’s your hips, knees or legs.</p></div></details>
+      <details name="faq"><summary>Can I claim on private health insurance?</summary><div><p>{{insurers}}</p></div></details>
+      <details name="faq"><summary>What if I need to cancel?</summary><div><p>Please give at least {{notice}}. The full rules are in the <a href="{{link:terms}}">booking terms</a>.</p></div></details>
+    </div>
+    <div class="ask">
+      <p><b>Still have a question?</b> Mitch is happy to help before you book.</p>
+      <div class="ask-actions">{{callBtn}}{{emailBtn}}</div>
     </div>
   </div>
 </section>
 
 <section class="urgent" aria-labelledby="urgent">
-  <div class="wrap split">
-    <h2 id="urgent">Don’t book online. Call 999 or go to A&amp;E if you have:</h2>
-    <p>Sudden loss of bladder or bowel control, numbness around your genitals or buttocks, weakness in both legs, chest pain, or a sudden severe headache.</p>
+  <div class="wrap narrow">
+    <h2 id="urgent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5M12 17.2v.1"/></svg><span>Don’t book online. Call 999 or go to A&amp;E if you have:</span></h2>
+    <ul class="flags">
+      <li>Sudden loss of bladder or bowel control</li>
+      <li>Numbness around your genitals or buttocks</li>
+      <li>Weakness in both legs</li>
+      <li>Chest pain</li>
+      <li>A sudden severe headache</li>
+    </ul>
+    <a class="btn btn-ember" href="tel:999">Call 999</a>
+    <p class="nhs">For urgent advice that isn’t an emergency, call NHS 111 or visit <a href="https://111.nhs.uk/" rel="noopener">111.nhs.uk</a>.</p>
   </div>
 </section>
 
-<section class="sec" id="visit" data-visit>
-  <div class="wrap visit">
-    <div>
-      <h2 class="h2 blue">Visit</h2>
-      <address>
-        <p class="lead">{{address}}</p>
-        <p>{{hours}}</p>
-        <p>{{parking}}</p>
-        <p>{{phone}}</p>
-        <p>{{email}}</p>
-      </address>
-      <div class="actions"><a class="btn btn-cobalt" href="{{link:book}}">Book an appointment</a>{{directions}}</div>
+<section class="sec" id="visit">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="label">Visit</p>
+      <h2 class="h2">Finding the clinic</h2>
+    </header>
+    <div class="visit">
+      <div class="visit-card">
+        <address>
+          <dl class="visit-info">
+            <div><dt>Address</dt><dd>{{address}}</dd></div>
+            <div><dt>Opening hours</dt><dd>{{hours}}</dd></div>
+            <div><dt>Parking</dt><dd>{{parking}}</dd></div>
+            <div><dt>Phone</dt><dd>{{phone}}</dd></div>
+            <div><dt>Email</dt><dd>{{email}}</dd></div>
+          </dl>
+        </address>
+        <a class="btn visit-book" href="{{link:book}}">Book an appointment</a>
+        <div class="visit-actions">{{callBtn}}{{directions}}</div>
+      </div>
+      <figure class="photo"><img src="{{base}}assets/img/photo-room-800.webp" srcset="{{base}}assets/img/photo-room-800.webp 800w, {{base}}assets/img/photo-room-1400.webp 1400w" sizes="(min-width: 960px) 55vw, 100vw" width="800" height="600" alt="A calm treatment room with a treatment table" loading="lazy" decoding="async"></figure>
+      <div class="map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="todo">[Map image of the clinic’s location]</span></div>
     </div>
-    <div class="map"><span class="todo">[Map image of the clinic’s location]</span></div>
   </div>
 </section>
 
-<div class="dock" data-dock><a class="btn btn-cobalt" href="{{link:book}}">Book an appointment</a></div>

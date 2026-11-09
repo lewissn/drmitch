@@ -5,7 +5,7 @@ A static site with no framework. The source is in `src/`, and `npm run build` wr
 ## To change anything Mitch needs to supply
 
 Edit `site.config.json`, then run `node build.mjs`. The build lists every placeholder still empty.
-Replace `src/assets/img/spine-neck.webp` with the real photo of Mitch, and add a map image in the Visit section.
+Put the real photo of Mitch in the empty frame in the About section (`.photo` in `src/pages/index.html`), and add a map image in the Visit section.
 
 ## Before launch
 
@@ -21,6 +21,15 @@ Replace `src/assets/img/spine-neck.webp` with the real photo of Mitch, and add a
 
 The site sets no cookies, so it has no banner. Adding analytics or an embedded map changes that: update `src/pages/cookies.html` and add a consent or opt-out control first.
 
-## The scroll scene
+## Temporary photos
 
-`src/assets/seq/` holds 64 frames at two sizes. `src/assets/js/site.js` draws them to a canvas as the page scrolls. People who prefer reduced motion get the first frame, with no scroll scene.
+These are free Unsplash photos (Unsplash Licence), used only until Mitch supplies his own. `npm run build` lists them as placeholders.
+
+- `photo-hero`: Julius Toltesi, https://unsplash.com/photos/chiropractor-adjusting-patients-upper-back-and-neck-ZzkNkbUxFMc
+- `photo-massage`: Jakub Klucký, https://unsplash.com/photos/massage-therapist-giving-a-back-massage-7yeqemd-p90
+- `photo-examine`: yury kirillov, https://unsplash.com/photos/a-man-getting-his-leg-examined-by-a-doctor-pbUWW-CBoqY
+- `photo-room`: Kimiya Sabbaghan, https://unsplash.com/photos/a-white-room-with-a-bed-and-a-desk-o4OJfrmMC0o
+
+## The logo
+
+`src/assets/img/logo-badge.webp` is Mitch's badge, cropped from the file he supplied. Swap in a higher-resolution version when his designer sends one. `CLAUDE.md` explains the "Dr" rules it has to follow.
